@@ -2,7 +2,7 @@
 
 Submitted by: **Hannah (Minyoung) Lee*
 
-**Wordle** is a word puzzle game where players guess a 5 letter word within six tries
+**Wordle** is a word puzzle game where players guess a 5 letter word within six tries.
 
 Time spent: **7** hours spent in total
 
