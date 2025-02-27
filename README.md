@@ -2,9 +2,9 @@
 
 Submitted by: **Hannah (Minyoung) Lee*
 
-**Name of your app** is an app that ... [Allows users to play Wordle] 
+**Wordle** is a word puzzle game where players guess a 5 letter word within six tries
 
-Time spent: **6** hours spent in total
+Time spent: **7** hours spent in total
 
 ## Required Features
 
@@ -26,18 +26,25 @@ The following **additional** features are implemented:
 ## Video Walkthrough
 
 Here is a reminder on how to embed Loom videos on GitHub. Feel free to remove this reminder once you upload your README. 
-
-[Guide]](https://www.youtube.com/watch?v=GA92eKlYio4) .
+<div>
+    <a href="https://www.loom.com/share/6b1bec03f1694445b4c1e24e96af4f72">
+      <p>Simulator - iPhone 16 Pro - 26 February 2025 - Watch Video</p>
+    </a>
+    <a href="https://www.loom.com/share/6b1bec03f1694445b4c1e24e96af4f72">
+      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/6b1bec03f1694445b4c1e24e96af4f72-f9f0f10b156d726f-full-play.gif">
+    </a>
+  </div>
 
 
 ## Notes
 
 Describe any challenges encountered while building the app.
 
+I found it a bit challenging to implement BoardController.swift, but after reviewing week 1's activity and troubleshooting, I was able to get it working as expected.
 
 ## License
 
-    Copyright [XXXX] [name of copyright owner]
+    Copyright [2025] [Hannah (Minyoung] Lee
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
