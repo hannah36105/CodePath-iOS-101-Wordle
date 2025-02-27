@@ -25,7 +25,6 @@ The following **additional** features are implemented:
 
 ## Video Walkthrough
 
-Here is a reminder on how to embed Loom videos on GitHub. Feel free to remove this reminder once you upload your README. 
 <div>
     <a href="https://www.loom.com/share/6b1bec03f1694445b4c1e24e96af4f72">
       <p>Simulator - iPhone 16 Pro - 26 February 2025 - Watch Video</p>
@@ -33,7 +32,7 @@ Here is a reminder on how to embed Loom videos on GitHub. Feel free to remove th
     <a href="https://www.loom.com/share/6b1bec03f1694445b4c1e24e96af4f72">
       <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/6b1bec03f1694445b4c1e24e96af4f72-f9f0f10b156d726f-full-play.gif">
     </a>
-  </div>
+  </div> 
 
 
 ## Notes
