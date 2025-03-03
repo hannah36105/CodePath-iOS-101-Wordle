@@ -5,50 +5,74 @@ class BoardController: NSObject,
                        UICollectionViewDataSource,
                        UICollectionViewDelegate,
                        UICollectionViewDelegateFlowLayout {
-
+  
   // MARK: - Properties
-  let numItemsPerRow = 5
-  let numRows = 6
+  var numItemsPerRow = 5
+  var numRows = 6
   let collectionView: UICollectionView
-  let goalWord: [String]
+  var goalWord: [String]
 
-  var numGuesses = 0
-  var currRow: Int {
-    return numGuesses / numItemsPerRow
+  var numTimesGuessed = 0 {
+    didSet {
+      if numTimesGuessed >= numRows * numItemsPerRow {
+        numTimesGuessed = (numRows * numItemsPerRow) - 1
+      }
+    }
   }
-
+  
+  var isAlienWordle = false
+  var currRow: Int {
+    return min(numTimesGuessed / numItemsPerRow, numRows - 1)
+  }
+  
   init(collectionView: UICollectionView) {
     self.collectionView = collectionView
-    self.goalWord = WordGenerator.generateRandomWord()!.map { String($0) }
+    let rawTheme = SettingsManager.shared.settingsDictionary[kWordThemeKey] as! String
+    let theme = WordTheme(rawValue: rawTheme)!
+    self.goalWord = WordGenerator.generateGoalWord(with: theme)
     super.init()
     collectionView.delegate = self
     collectionView.dataSource = self
   }
-
+  
   // MARK: - Public Methods
-  func enter(_ string: String) {
-    guard numGuesses < numItemsPerRow * numRows else { return }
-    let cell = collectionView.cellForItem(at: IndexPath(item: numGuesses, section: 0)) as! LetterCell
-    cell.set(letter: string)
-    UIView.animate(withDuration: 0.1,
-                   delay: 0.0,
-                   options: [.autoreverse],
-                   animations: {
-      cell.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
-    }, completion: { finished in
-      cell.transform = CGAffineTransform.identity
-    })
-    if isFinalGuessInRow() {
-      markLettersInRow()
-    }
-    numGuesses += 1
+  func resetBoard(with settings: [String: Any]) {
+    applyNumLettersSettings(with: settings)
+    applyNumGuessesSettings(with: settings)
+    applyThemeSettings(with: settings)
+    applyIsAlienWordleSettings(with: settings)
+    numTimesGuessed = 0
+    collectionView.reloadData()
   }
-
-  func deleteLastCharacter() {
-    guard numGuesses > 0 && numGuesses % numItemsPerRow != 0 else { return }
-    let cell = collectionView.cellForItem(at: IndexPath(item: numGuesses - 1, section: 0)) as! LetterCell
-    numGuesses -= 1
-    cell.clearLetter()
-    cell.set(style: .initial)  // Apply the style to the cell after clearing it
+  
+  func resetBoardWithCurrentSettings() {
+    numTimesGuessed = 0
+    collectionView.reloadData()
+  }
+  
+  private func applyNumLettersSettings(with settings: [String: Any]) {
+    if let numLetters = settings[kNumLettersKey] as? Int, numLetters >= 4, numLetters <= 7 {
+      numItemsPerRow = numLetters
+    }
+  }
+  
+  private func applyNumGuessesSettings(with settings: [String: Any]) {
+    if let numGuesses = settings[kNumGuessesKey] as? Int {
+      numRows = max(3, min(7, numGuesses))
+    } else {
+      numRows = 6
+    }
+  }
+  
+  private func applyThemeSettings(with settings: [String: Any]) {
+    if let rawTheme = settings[kWordThemeKey] as? String, let theme = WordTheme(rawValue: rawTheme) {
+      goalWord = WordGenerator.generateGoalWord(with: theme)
+    }
+  }
+  
+  private func applyIsAlienWordleSettings(with settings: [String: Any]) {
+    if let isAlien = settings[kIsAlienWordleKey] as? Bool {
+      isAlienWordle = isAlien
+    }
   }
 }
